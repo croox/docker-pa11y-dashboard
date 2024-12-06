@@ -1,0 +1,23 @@
+---
+
+services:
+  mongodb:
+    container_name: pa11y_mongodb
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+
+  pa11y:
+    container_name: pa11y
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+    ports:
+      - 4000:4000
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_data:

@@ -9,7 +9,9 @@ services:
 
   pa11y:
     container_name: pa11y
-    image: ghcr.io/croox/docker-pa11y-dashboard:latest
+    build:
+      context: repo/latest
+      dockerfile: Dockerfile
     environment:
       - NODE_ENV=production
     ports:

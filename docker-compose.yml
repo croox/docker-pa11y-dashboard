@@ -9,13 +9,12 @@ services:
 
   pa11y:
     container_name: pa11y
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/croox/docker-pa11y-dashboard:latest
     environment:
       - NODE_ENV=production
     ports:
-      - 4000:4000
+      - 127.0.0.1:4000:4000
+    platform: linux/amd64
     depends_on:
       - mongodb
 

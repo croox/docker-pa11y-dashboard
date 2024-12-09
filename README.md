@@ -9,10 +9,38 @@ Docker Hub: https://hub.docker.com/r/croox/pa11y-dashboard
 - 4.2.0
 - latest
 
-## Pulling the latest image
+## Running the latest image
 
 ```bash
 docker run --rm -p 127.0.0.1:4000:4000 -d croox/pa11y-dashboard:latest
+```
+
+## Docker Compose
+
+```yaml
+---
+
+volumes:
+  mongodb_data:
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  pa11y:
+    container_name: pa11y
+    image: croox/pa11y-dashboard:4.2.0
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    ports:
+      - 4000:4000
 ```
 
 ## Using a custom configuration
